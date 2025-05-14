@@ -3,10 +3,10 @@
 <!-- image embed, use 0.25x scaling -->
 ![CherryBomb Logo](assets/CherryBomb_Logo@0.25x.png "CherryBomb")
 
-> A modern solution for [briefly describe the problem CherryBomb solves].
+> A modern solution for social media content analysis, prediction, and optimization.
 
 - Simple and Effective
-- Developer Friendly
-- [Add another key benefit]
+- Data-Driven Insights
+- Predictive Content Analytics
 
 [Get Started](/README.md)
