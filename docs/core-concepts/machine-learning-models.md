@@ -294,7 +294,7 @@ flowchart LR
 - PyTorch for specialized neural network architectures
 - Gensim for topic modeling and text processing
 
-### Optimization Techniques
+### Optimization Techniques for ML
 
 - ONNX model conversion for cross-platform deployment
 - Model quantization for size and performance optimization

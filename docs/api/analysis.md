@@ -7,7 +7,7 @@ The Analysis API provides programmatic access to CherryBomb's analytics capabili
 The Analysis API enables:
 
 - Running predefined analysis operations on datasets
-- Generating custom metrics and reports
+- Generating custom ƒmetrics and reports
 - Exporting analysis results in various formats
 - Scheduling and automating regular analysis tasks
 
@@ -15,13 +15,13 @@ The Analysis API enables:
 
 ### Run Dataset Analysis
 
-```
+```text
 POST /api/analysis/datasets/{datasetId}/analyze
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -60,13 +60,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Get Analysis Status
 
-```
+```text
 GET /api/analysis/{analysisId}/status
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -89,13 +89,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Get Analysis Summary
 
-```
+```text
 GET /api/analysis/{analysisId}/summary
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -134,19 +134,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Get Detailed Analysis
 
-```
+```text
 GET /api/analysis/{analysisId}/detailed
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 **Query Parameters:**
 
-```
+```text
 section=engagement
 includeRawData=false
 format=json
@@ -232,19 +232,19 @@ format=json
 
 ### Export Analysis
 
-```
+```text
 GET /api/analysis/{analysisId}/export
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 **Query Parameters:**
 
-```
+```text
 format=csv
 sections=engagement,content,audience
 ```
@@ -257,13 +257,13 @@ Binary file download
 
 ### Analyze Specific Content
 
-```
+```text
 POST /api/analysis/content/{contentId}/analyze
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -342,13 +342,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Compare Accounts
 
-```
+```text
 POST /api/analysis/compare/accounts
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -438,13 +438,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Compare Time Periods
 
-```
+```text
 POST /api/analysis/compare/timeperiods
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -536,13 +536,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Identify Trends
 
-```
+```text
 POST /api/analysis/trends/identify
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -620,19 +620,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Track Trend Development
 
-```
+```text
 GET /api/analysis/trends/{trendId}/track
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 **Query Parameters:**
 
-```
+```text
 timeframe=last90days
 granularity=weekly
 ```
@@ -698,13 +698,13 @@ granularity=weekly
 
 ### Define Custom Metric
 
-```
+```text
 POST /api/analysis/metrics/custom
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -747,13 +747,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Create Custom Report
 
-```
+```text
 POST /api/analysis/reports/custom
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -826,13 +826,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Run Scheduled Report Now
 
-```
+```text
 POST /api/analysis/reports/{reportId}/run
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -850,13 +850,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Get Report Execution Status
 
-```
+```text
 GET /api/analysis/reports/executions/{executionId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 

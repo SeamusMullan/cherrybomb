@@ -16,13 +16,13 @@ The Prediction API enables:
 
 ### Predict Content Performance
 
-```
+```text
 POST /api/prediction/content
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -217,13 +217,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Get Prediction Details
 
-```
+```text
 GET /api/prediction/{predictionId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -245,13 +245,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Compare Content Variations
 
-```
+```text
 POST /api/prediction/compare
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -388,19 +388,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Get Optimal Posting Times
 
-```
+```text
 GET /api/prediction/posting-times/{accountId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 **Query Parameters:**
 
-```
+```text
 platform=instagram
 daysAhead=7
 contentType=photo
@@ -460,13 +460,13 @@ contentType=photo
 
 ### Evaluate Specific Posting Time
 
-```
+```text
 POST /api/prediction/evaluate-time
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -526,13 +526,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Get Content Optimization Suggestions
 
-```
+```text
 POST /api/prediction/optimize
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -670,13 +670,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Generate AI-Enhanced Content
 
-```
+```text
 POST /api/prediction/enhance
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -760,13 +760,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Predict Trending Topics
 
-```
+```text
 POST /api/prediction/trends/forecast
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -907,13 +907,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Track Trend Prediction Accuracy
 
-```
+```text
 GET /api/prediction/trends/{predictionId}/accuracy
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -973,19 +973,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### List Available Models
 
-```
+```text
 GET /api/prediction/models
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 **Query Parameters:**
 
-```
+```text
 platform=instagram
 type=engagement
 ```
@@ -1045,13 +1045,13 @@ type=engagement
 
 ### Get Model Details
 
-```
+```text
 GET /api/prediction/models/{modelId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -1121,13 +1121,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Request Custom Model Training
 
-```
+```text
 POST /api/prediction/models/train
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -1176,13 +1176,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Get Model Training Status
 
-```
+```text
 GET /api/prediction/models/training/{trainingJobId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -1237,13 +1237,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Set Default Prediction Model
 
-```
+```text
 POST /api/prediction/models/{modelId}/set-default
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 

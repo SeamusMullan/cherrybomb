@@ -15,13 +15,13 @@ The Content Management API enables:
 
 ### Create Content Draft
 
-```
+```text
 POST /api/content/drafts
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer <YOUR_JWT_TOKEN>
 Content-Type: application/json
 ```
@@ -55,13 +55,13 @@ Content-Type: application/json
 
 ### Get Content Draft
 
-```
+```text
 GET /api/content/drafts/{draftId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer <YOUR_JWT_TOKEN>
 ```
 
@@ -91,13 +91,13 @@ Authorization: Bearer <YOUR_JWT_TOKEN>
 
 ### Update Content Draft
 
-```
+```text
 PUT /api/content/drafts/{draftId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer <YOUR_JWT_TOKEN>
 Content-Type: application/json
 ```
@@ -128,13 +128,13 @@ Content-Type: application/json
 
 ### Delete Content Draft
 
-```
+```text
 DELETE /api/content/drafts/{draftId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer <YOUR_JWT_TOKEN>
 ```
 
@@ -149,19 +149,19 @@ Authorization: Bearer <YOUR_JWT_TOKEN>
 
 ### List Content Drafts
 
-```
+```text
 GET /api/content/drafts
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer <YOUR_JWT_TOKEN>
 ```
 
 **Query Parameters:**
 
-```
+```text
 projectId=proj_123abc
 status=draft
 limit=20
@@ -197,13 +197,13 @@ order=desc
 
 ### Schedule Content Draft
 
-```
+```text
 POST /api/content/schedule
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer <YOUR_JWT_TOKEN>
 Content-Type: application/json
 ```
@@ -236,13 +236,13 @@ Content-Type: application/json
 
 ### Update Scheduled Content
 
-```
+```text
 PUT /api/content/schedule/{scheduledItemId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer <YOUR_JWT_TOKEN>
 Content-Type: application/json
 ```
@@ -271,13 +271,13 @@ Content-Type: application/json
 
 ### Unschedule Content
 
-```
+```text
 DELETE /api/content/schedule/{scheduledItemId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer <YOUR_JWT_TOKEN>
 ```
 
@@ -294,19 +294,19 @@ Authorization: Bearer <YOUR_JWT_TOKEN>
 
 ### Get Calendar Items
 
-```
+```text
 GET /api/content/calendar
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer <YOUR_JWT_TOKEN>
 ```
 
 **Query Parameters:**
 
-```
+```text
 projectId=proj_123abc
 startDate=2025-05-01
 endDate=2025-05-31

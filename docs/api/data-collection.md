@@ -8,13 +8,13 @@ Before collecting data from a social media platform, you must authenticate with 
 
 ### Connect Platform Account
 
-```
+```text
 POST /api/platforms/connect
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -51,13 +51,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### List Connected Platforms
 
-```
+```text
 GET /api/platforms/connected
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -91,13 +91,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Disconnect Platform
 
-```
+```text
 DELETE /api/platforms/connected/{connectionId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -114,13 +114,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Create Collection Job
 
-```
+```text
 POST /api/collection/jobs
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -184,19 +184,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### List Collection Jobs
 
-```
+```text
 GET /api/collection/jobs
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 **Query Parameters:**
 
-```
+```text
 status=active,pending,completed,failed
 projectId=proj_123456789
 limit=20
@@ -241,13 +241,13 @@ offset=0
 
 ### Get Job Status
 
-```
+```text
 GET /api/collection/jobs/{jobId}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -308,13 +308,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Cancel Collection Job
 
-```
+```text
 POST /api/collection/jobs/{jobId}/cancel
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -333,13 +333,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Retry Failed Job
 
-```
+```text
 POST /api/collection/jobs/{jobId}/retry
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -360,19 +360,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Search for Accounts
 
-```
+```text
 GET /api/collection/discover
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 **Query Parameters:**
 
-```
+```text
 platform=instagram
 query=fashion
 limit=10
@@ -417,13 +417,13 @@ limit=10
 
 ### Get Account Details
 
-```
+```text
 GET /api/collection/accounts/{platform}/{username}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -549,13 +549,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Register Collection Webhook
 
-```
+```text
 POST /api/collection/webhooks
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 

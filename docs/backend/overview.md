@@ -57,30 +57,30 @@ graph TD
 
 ### Key Service Areas
 
-1.  **Data Collection Service (`DataCollectionOrchestrator`)**
+1. **Data Collection Service (`DataCollectionOrchestrator`)**
     - Manages connections to social media platforms (via APIs or scraping logic).
     - Handles authentication tokens securely.
     - Orchestrates the collection of posts, comments, metrics, etc.
     - Normalizes data from different platforms into a consistent format.
     - Communicates progress and status to the UI.
 
-2.  **Data Storage Service**
+2. **Data Storage Service**
     - Manages the local database (e.g., SQLite) for structured data like user settings, project metadata, and smaller datasets.
     - Handles storage and retrieval of larger data files (e.g., raw scraped data, processed datasets, trained ML models) on the local file system.
     - Ensures data integrity and provides an API for other services to access data.
 
-3.  **Machine Learning Service (`MLServiceManager`)**
+3. **Machine Learning Service (`MLServiceManager`)**
     - Manages the loading and execution of prediction models.
     - May interface with Python scripts/processes for running complex ML tasks if models are not purely JavaScript-based (e.g., using TensorFlow.js).
     - Provides an interface for the UI or Analytics Engine to get predictions or insights.
     - Handles model training or fine-tuning locally if supported.
 
-4.  **Analytics Service (`AnalyticsEngine`)**
+4. **Analytics Service (`AnalyticsEngine`)**
     - Performs data aggregation, trend analysis, and statistical calculations on the collected datasets.
     - Generates data for visualizations displayed in the frontend.
     - May utilize ML service for deeper insights.
 
-5.  **Inter-Process Communication (IPC)**
+5. **Inter-Process Communication (IPC)**
     - Electron's IPC mechanisms are used for communication between the Renderer process (UI) and the Main process (where these backend-like services reside or are managed).
 
 ## Data Management

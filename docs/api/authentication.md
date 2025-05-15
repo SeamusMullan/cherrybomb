@@ -14,7 +14,7 @@ CherryBomb supports multiple authentication methods:
 
 ### Obtaining a JWT Token
 
-```
+```text
 POST /api/auth/login
 ```
 
@@ -48,13 +48,13 @@ POST /api/auth/login
 
 Include the token in the `Authorization` header of your requests:
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 ### Refreshing a Token
 
-```
+```text
 POST /api/auth/refresh
 ```
 
@@ -81,13 +81,13 @@ POST /api/auth/refresh
 
 ### Creating an API Key
 
-```
+```text
 POST /api/auth/api-keys
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -121,19 +121,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 Include the API key in the `X-API-Key` header of your requests:
 
-```
+```text
 X-API-Key: cb_sk_123456789abcdefghijklmnopqrstuvwxyz
 ```
 
 ### Listing API Keys
 
-```
+```text
 GET /api/auth/api-keys
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -157,13 +157,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Revoking an API Key
 
-```
+```text
 DELETE /api/auth/api-keys/{key_id}
 ```
 
 **Request Headers:**
 
-```
+```text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -180,7 +180,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Initiating OAuth Flow
 
-```
+```text
 GET /api/auth/oauth/{provider}
 ```
 
@@ -192,20 +192,20 @@ Where `{provider}` can be:
 
 **Query Parameters:**
 
-```
+```text
 redirect_uri=https://your-app.com/callback
 state=randomStateString
 ```
 
 ### OAuth Callback Handler
 
-```
+```text
 GET /api/auth/oauth/{provider}/callback
 ```
 
 **Query Parameters:**
 
-```
+```text
 code=authorizationCode
 state=randomStateString
 ```
