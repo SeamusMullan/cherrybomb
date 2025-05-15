@@ -18,51 +18,72 @@
      }
 
      .mermaid {
-        background-color: var(--theme-bg, #fff);
-        color: var(--theme-fg, #222);
+        background-color: var(--base-background-color, #fff);
+        color: var(--base-color, #222);
         border-radius: 0.5rem;
         padding: 1rem;
         margin: 1rem 0;
         /* Ensure diagrams are always readable */
         --mermaid-font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-        --mermaid-font-size: 1.05em;
+        --mermaid-font-size: 1.1em;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
      }
      /* Mermaid diagram custom theme for both light and dark */
      .mermaid svg {
         background: none !important;
      }
+     
+     /* Enhanced diagram readability */
+     [data-theme="dark"] .mermaid,
+     [data-theme="dark"] .mermaid svg {
+        filter: brightness(0.95) contrast(1.1);
+     }
      .mermaid .node rect,
      .mermaid .node ellipse,
      .mermaid .node polygon {
-        fill: #f8f8fa !important;
-        stroke: #b0b0b0 !important;
-        stroke-width: 1.5px;
+        fill: #f9f9fa !important;
+        stroke: #cc4a8b !important;
+        stroke-width: 1.8px !important;
      }
      [data-theme="dark"] .mermaid .node rect,
      [data-theme="dark"] .mermaid .node ellipse,
      [data-theme="dark"] .mermaid .node polygon {
-        fill: #23232b !important;
-        stroke: #888 !important;
+        fill: #2a2a36 !important;
+        stroke: #cc4a8b !important;
+        stroke-width: 1.8px !important;
      }
      .mermaid .node text {
         fill: #222 !important;
         font-weight: 500;
+        font-size: 14px !important;
      }
      [data-theme="dark"] .mermaid .node text {
         fill: #f8f8fa !important;
      }
      .mermaid .edgeLabel {
         background: transparent !important;
-        fill: #444 !important;
+        color: #444 !important;
+        font-weight: 500;
+        font-size: 14px !important;
      }
      [data-theme="dark"] .mermaid .edgeLabel {
-        fill: #eee !important;
+        color: #f0f0f2 !important;
      }
      .mermaid .edgePath path {
-        stroke: #b0b0b0 !important;
+        stroke: #cc4a8b !important;
+        stroke-width: 1.5px !important;
      }
      [data-theme="dark"] .mermaid .edgePath path {
-        stroke: #888 !important;
+        stroke: #cc4a8b !important;
+        stroke-width: 1.5px !important;
+     }
+     .mermaid .flowchart-link {
+        stroke: #cc4a8b !important;
+        stroke-width: 1.5px !important;
+     }
+     .mermaid .marker {
+        fill: #cc4a8b !important;
+        stroke: #cc4a8b !important;
      }
      .mermaid .label {
         font-family: var(--mermaid-font-family);

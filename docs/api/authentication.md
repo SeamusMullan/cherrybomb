@@ -185,6 +185,7 @@ GET /api/auth/oauth/{provider}
 ```
 
 Where `{provider}` can be:
+
 - `google`
 - `facebook`
 - `twitter`
@@ -203,6 +204,7 @@ GET /api/auth/oauth/{provider}/callback
 ```
 
 **Query Parameters:**
+
 ```
 code=authorizationCode
 state=randomStateString

@@ -42,6 +42,7 @@ flowchart TD
 CherryBomb extracts over 500 features from social media content to power predictive models:
 
 ### Text Features
+
 - Sentiment analysis (positive/negative/neutral)
 - Emotional tone mapping (joy, anger, fear, etc.)
 - Readability scores (Flesch-Kincaid, SMOG)
@@ -54,6 +55,7 @@ CherryBomb extracts over 500 features from social media content to power predict
 - Language complexity metrics
 
 ### Image Features
+
 - Object detection and classification
 - Scene categorization
 - Color palette analysis
@@ -66,6 +68,7 @@ CherryBomb extracts over 500 features from social media content to power predict
 - Style categorization (illustration, photography, graphic)
 
 ### Video Features
+
 - Duration and pacing
 - Scene changes frequency
 - Audio analysis (music, speech, silence ratios)
@@ -78,6 +81,7 @@ CherryBomb extracts over 500 features from social media content to power predict
 - Narrative structure identification
 
 ### Contextual Features
+
 - Day of week and time of day
 - Proximity to holidays/events
 - Account historical performance metrics
@@ -93,6 +97,7 @@ CherryBomb extracts over 500 features from social media content to power predict
 CherryBomb uses a systematic approach to train high-quality prediction models:
 
 ### 1. Data Preprocessing
+
 - Outlier detection and handling
 - Missing value imputation
 - Time-based feature normalization
@@ -100,6 +105,7 @@ CherryBomb uses a systematic approach to train high-quality prediction models:
 - Feature scaling
 
 ### 2. Training Process
+
 - Train/validation/test splitting (70/15/15 by default)
 - Cross-validation with time-based folding
 - Hyperparameter optimization via Bayesian methods
@@ -107,6 +113,7 @@ CherryBomb uses a systematic approach to train high-quality prediction models:
 - Incremental learning for model updates
 
 ### 3. Evaluation Metrics
+
 - Mean Absolute Error (MAE) for engagement predictions
 - Root Mean Squared Error (RMSE) for numeric predictions
 - Precision/Recall for classification tasks
@@ -146,6 +153,7 @@ CherryBomb's content optimization models suggest modifications to improve predic
 ### Optimization Objectives
 
 Models can optimize for different objectives:
+
 - Maximize total engagement
 - Maximize reach
 - Maximize conversion rate
@@ -166,6 +174,7 @@ flowchart LR
 ```
 
 The optimization process uses:
+
 - A/B variant testing simulation
 - Reinforcement learning for suggestion generation
 - Sensitivity analysis to identify highest-impact changes
@@ -195,6 +204,7 @@ flowchart TD
 ```
 
 The trend forecasting models use:
+
 - Early signal detection to identify trends in nascent stages
 - Growth curve fitting to project trend trajectories
 - Anomaly detection to identify potential viral content
@@ -216,6 +226,7 @@ CherryBomb uses unsupervised and supervised learning to segment audiences and pr
 ### Segment Response Prediction
 
 For each identified segment, separate prediction models forecast:
+
 - Engagement likelihood
 - Engagement type distribution
 - Conversion probability
