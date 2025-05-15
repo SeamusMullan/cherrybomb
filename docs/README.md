@@ -1,8 +1,29 @@
 # Welcome to CherryBomb
 
-CherryBomb is a desktop application for social media content analysis, prediction, and optimization. It enables content creators and marketers to scrape social media accounts, build datasets, analyze trends, and predict the performance of future content before publishing.
+CherryBomb is a powerful desktop application for social media content analysis, trend prediction, and performance optimization. It enables users to scrape data from multiple social media platforms, build comprehensive datasets, analyze engagement patterns, and predict the performance of future content before publishing.
 
-This documentation provides all the information you need to get started with CherryBomb, understand its features, and contribute to its development.
+This documentation provides all the information you need to get started with CherryBomb, understand its features, and implement your own social media analytics workflow.
+
+## Key Features
+
+- **Multi-Platform Data Collection**: Scrape content, engagement metrics, and audience data from major social media platforms (Instagram, TikTok, YouTube, Twitter, etc.)
+- **Comprehensive Dataset Management**: Build, organize, and maintain datasets for analysis and ML model training
+- **Advanced Trend Analysis**: Identify patterns and emerging trends across platforms and content types
+- **Performance Prediction**: Forecast engagement metrics for draft content before publishing
+- **Content Optimization**: Get AI-powered recommendations to improve content performance
+- **Cross-Platform Support**: Work with all major social media platforms in a single application
+- **Offline Processing**: Analyze data and make predictions even without internet connection
+- **Secure Local Storage**: Keep all your data secure on your local machine
+
+## Desktop Application
+
+CherryBomb is designed as a cross-platform desktop application built with Electron, providing:
+
+- **Native Performance**: Fast data processing and analysis
+- **Offline Capability**: Work with your data without internet access
+- **Local Data Control**: Keep sensitive data on your own machine
+- **Seamless Updates**: Automatic updates to keep the latest features
+- **Cross-Platform Support**: Available for Windows, macOS, and Linux
 
 ## Getting Started
 
@@ -14,14 +35,6 @@ To get started with CherryBomb, you should first [install the application](getti
 - **Dataset Management:** Build, organize, and maintain datasets for analytics and ML training
 - **Trend Analysis:** Identify patterns and trends across platforms and content types
 - **Performance Prediction:** Forecast engagement metrics before content publication
-
-## Key Features
-
-- **Account Scraping:** Extract comprehensive data from social media accounts
-- **Content Analytics:** Detailed analysis of post performance and audience engagement
-- **Prediction Models:** ML-powered forecasting of content performance metrics
-- **Content Calendar:** Plan your social media strategy with data-driven insights
-- **Cross-Platform Support:** Works with major social platforms (Instagram, TikTok, YouTube, Twitter, etc.)
 
 ## Next Steps
 

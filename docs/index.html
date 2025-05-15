@@ -16,6 +16,58 @@
      :root {
         --theme-hue: 325;
      }
+
+     .mermaid {
+        background-color: var(--theme-bg, #fff);
+        color: var(--theme-fg, #222);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin: 1rem 0;
+        /* Ensure diagrams are always readable */
+        --mermaid-font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+        --mermaid-font-size: 1.05em;
+     }
+     /* Mermaid diagram custom theme for both light and dark */
+     .mermaid svg {
+        background: none !important;
+     }
+     .mermaid .node rect,
+     .mermaid .node ellipse,
+     .mermaid .node polygon {
+        fill: #f8f8fa !important;
+        stroke: #b0b0b0 !important;
+        stroke-width: 1.5px;
+     }
+     [data-theme="dark"] .mermaid .node rect,
+     [data-theme="dark"] .mermaid .node ellipse,
+     [data-theme="dark"] .mermaid .node polygon {
+        fill: #23232b !important;
+        stroke: #888 !important;
+     }
+     .mermaid .node text {
+        fill: #222 !important;
+        font-weight: 500;
+     }
+     [data-theme="dark"] .mermaid .node text {
+        fill: #f8f8fa !important;
+     }
+     .mermaid .edgeLabel {
+        background: transparent !important;
+        fill: #444 !important;
+     }
+     [data-theme="dark"] .mermaid .edgeLabel {
+        fill: #eee !important;
+     }
+     .mermaid .edgePath path {
+        stroke: #b0b0b0 !important;
+     }
+     [data-theme="dark"] .mermaid .edgePath path {
+        stroke: #888 !important;
+     }
+     .mermaid .label {
+        font-family: var(--mermaid-font-family);
+        font-size: var(--mermaid-font-size);
+     }
    </style>
 
 </head>
@@ -26,6 +78,9 @@
       name: 'CherryBomb',
       repo: 'https://github.com/seamusmullan/CherryBomb',
       loadSidebar: true,
+      mermaidConfig: {
+       querySelector: ".mermaid",
+      },
       subMaxLevel: 2,
       coverpage: true,
       onlyCover: true,
@@ -58,6 +113,14 @@
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <!-- Plugins -->
+  <script src="//cdn.jsdelivr.net/npm/d3@7"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true });
+    window.mermaid = mermaid;
+  </script>
+  <script src="//unpkg.com/docsify-mermaid@2.0.0/dist/docsify-mermaid.js"></script>
+  <script src="//unpkg.com/docsify-mermaid-zoom/dist/docsify-mermaid-zoom.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
