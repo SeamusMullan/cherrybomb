@@ -71,10 +71,36 @@ const handleResizing = (isResizing: boolean): void => {
   resizingAny.value = isResizing
 }
 
+// --- Sidebar resizing logic ---
+const sidebarWidth = ref(220)
+const minSidebarWidth = 120
+const maxSidebarWidth = 400
+const resizingSidebar = ref(false)
+const sidebarResizeStart = ref({ x: 0, width: 220 })
+
+const onSidebarResizeMouseDown = (e: MouseEvent): void => {
+  resizingSidebar.value = true
+  sidebarResizeStart.value = { x: e.clientX, width: sidebarWidth.value }
+  document.body.style.cursor = 'ew-resize'
+}
+
+const onSidebarResizeMouseMove = (e: MouseEvent): void => {
+  if (resizingSidebar.value) {
+    const newWidth = sidebarResizeStart.value.width + (e.clientX - sidebarResizeStart.value.x)
+    sidebarWidth.value = Math.max(minSidebarWidth, Math.min(maxSidebarWidth, newWidth))
+  }
+}
+
+const onSidebarResizeMouseUp = (): void => {
+  if (resizingSidebar.value) {
+    resizingSidebar.value = false
+    document.body.style.cursor = ''
+  }
+}
+
 // --- Window size and grid area ---
 const windowWidth = ref(window.innerWidth)
 const windowHeight = ref(window.innerHeight)
-const sidebarWidth = 220
 const headerHeight = 56
 
 const updateWindowSize = (): void => {
@@ -83,17 +109,34 @@ const updateWindowSize = (): void => {
 }
 
 onMounted(() => {
+  window.addEventListener('mousemove', onSidebarResizeMouseMove)
+  window.addEventListener('mouseup', onSidebarResizeMouseUp)
   window.addEventListener('resize', updateWindowSize)
 })
 onUnmounted(() => {
+  window.removeEventListener('mousemove', onSidebarResizeMouseMove)
+  window.removeEventListener('mouseup', onSidebarResizeMouseUp)
   window.removeEventListener('resize', updateWindowSize)
 })
 </script>
 
 <template>
   <div class="dashboard-layout">
-    <Sidebar v-model:activeTab="activeTab" />
-    <div class="main-area">
+    <Sidebar v-model:active-tab="activeTab" :style="{ width: sidebarWidth + 'px' }" />
+    <div
+      class="sidebar-resize-handle"
+      :style="{
+        position: 'absolute',
+        top: '0',
+        left: sidebarWidth + 'px',
+        width: '5px',
+        height: '100%',
+        cursor: 'ew-resize',
+        zIndex: 20
+      }"
+      @mousedown="onSidebarResizeMouseDown"
+    ></div>
+    <div class="main-area" :style="{ marginLeft: sidebarWidth + 'px' }">
       <Header :title="activeTabLabel" />
       <div class="dashboard-content">
         <GridOverlay
@@ -101,7 +144,7 @@ onUnmounted(() => {
           :visible="draggingAny || resizingAny"
           :width="windowWidth - sidebarWidth"
           :height="windowHeight - headerHeight"
-          style="position: absolute; left: 0; top: 0;"
+          style="position: absolute; left: 0; top: 0"
         />
         <div class="windows-area">
           <FloatingWindow
@@ -141,7 +184,6 @@ onUnmounted(() => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 220px;
   height: 100vh;
   overflow: hidden;
 }
@@ -160,5 +202,15 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   pointer-events: auto;
+}
+.sidebar-resizer {
+  background: rgba(255, 255, 255, 0.1);
+}
+.sidebar-resize-handle {
+  background: transparent;
+  transition: background 0.2s;
+}
+.sidebar-resize-handle:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 </style>
