@@ -71,6 +71,37 @@ const handleResizing = (isResizing: boolean): void => {
   resizingAny.value = isResizing
 }
 
+function autoArrangeWindows(): void {
+  // Calculate area for windows
+  const areaWidth = windowWidth.value - sidebarWidth.value
+  // const areaHeight = windowHeight.value - headerHeight // not used
+  const count = windows.length
+  if (count === 0) return
+
+  // Sort windows left-to-right, top-to-bottom by current y then x
+  const sorted = [...windows].sort((a, b) => a.y - b.y || a.x - b.x)
+
+  // Try to fit as many windows per row as possible, keeping their width
+  let x = 40
+  let y = 40
+  let maxRowHeight = 0
+  const padding = 24
+
+  for (const win of sorted) {
+    // If window would overflow, move to next row
+    if (x + win.width > areaWidth) {
+      x = 40
+      y += maxRowHeight + padding
+      maxRowHeight = 0
+    }
+    // Always set to a new value to force reactivity
+    win.x = x + Math.random() * 0.001 // force change
+    win.y = y + Math.random() * 0.001 // force change
+    x += win.width + padding
+    if (win.height > maxRowHeight) maxRowHeight = win.height
+  }
+}
+
 // --- Sidebar resizing logic ---
 const sidebarWidth = ref(220)
 const minSidebarWidth = 120
@@ -137,7 +168,7 @@ onUnmounted(() => {
       @mousedown="onSidebarResizeMouseDown"
     ></div>
     <div class="main-area" :style="{ marginLeft: sidebarWidth + 'px' }">
-      <Header :title="activeTabLabel" />
+      <Header :title="activeTabLabel" @auto-arrange="autoArrangeWindows" />
       <div class="dashboard-content">
         <GridOverlay
           :grid-size="gridSize"

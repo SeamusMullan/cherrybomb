@@ -185,6 +185,34 @@ watch(resizing, (val) => {
   if (props.onResizeState) props.onResizeState(val)
 })
 
+watch(
+  () => [props.x, props.y],
+  ([newX, newY]) => {
+    if (!dragging.value && typeof newX === 'number' && typeof newY === 'number') {
+      if (pos.value.x !== newX || pos.value.y !== newY) {
+        animateTo(pos.value, { x: newX, y: newY }, (vals) => {
+          pos.value.x = vals.x
+          pos.value.y = vals.y
+        })
+      }
+    }
+  }
+)
+
+watch(
+  () => [props.width, props.height],
+  ([newW, newH]) => {
+    if (!resizing.value && typeof newW === 'number' && typeof newH === 'number') {
+      if (size.value.width !== newW || size.value.height !== newH) {
+        animateTo(size.value, { width: newW, height: newH }, (vals) => {
+          size.value.width = vals.width
+          size.value.height = vals.height
+        })
+      }
+    }
+  }
+)
+
 const style = computed(() => ({
   left: pos.value.x + 'px',
   top: pos.value.y + 'px',
