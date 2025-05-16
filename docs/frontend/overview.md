@@ -1,113 +1,109 @@
 # Frontend Overview
 
-This document provides an overview of the CherryBomb desktop application's frontend architecture, technology stack, and key structural elements. The frontend is designed to be intuitive, responsive, and provide a seamless user experience for managing social media analytics and content strategy.
+CherryBomb's frontend is a modern, cross-platform desktop interface built with Electron and React, designed for usability, performance, and extensibility. This section provides an overview of the frontend architecture, key user journeys, and major UI components.
 
-## Goals
-
-- **User-Friendly Interface**: Simplify complex data analysis and prediction tasks.
-- **Responsiveness**: Ensure a smooth experience across different interactions within the desktop application.
-- **Modularity**: Build components that are reusable and maintainable.
-- **Performance**: Optimize for quick data loading and interaction.
-- **Accessibility**: Adhere to accessibility standards to make the application usable by a wider audience.
+---
 
 ## Technology Stack
 
-The frontend of CherryBomb is primarily built using the following technologies:
+- **Electron**: Desktop shell using web technologies for cross-platform support
+- **React**: Component-based UI framework for dynamic, maintainable interfaces
+- **TypeScript**: Static typing for safer, more robust code
+- **State Management**: Redux, Zustand, or Context API for predictable data flow
+- **Styling**: CSS Modules, Styled-Components, or Tailwind CSS for modular, scalable styles
+- **Visualization**: D3.js, Recharts, or Chart.js for advanced data visualization
+- **Data Fetching**: Axios or Fetch API for local and remote data access
+- **Testing**: Jest and React Testing Library for unit and integration tests
 
-- **Electron**: For building the cross-platform desktop application shell using web technologies.
-- **React**: A JavaScript library for building user interfaces, chosen for its component-based architecture and strong community support.
-- **Redux (or similar state management like Zustand/Context API)**: For managing application state in a predictable way, especially for complex data flows.
-- **TypeScript**: For static typing, improving code quality and maintainability.
-- **HTML5 & CSS3**: For structuring and styling the application.
-  - **CSS Modules / Styled-Components / Tailwind CSS**: For scoped styling and efficient CSS management.
-- **D3.js / Recharts / Chart.js**: For creating interactive and informative data visualizations.
-- **Axios / Fetch API**: For making requests to any potential local backend services or external APIs (though primarily a desktop app, some integrations might require this).
-- **Jest / React Testing Library**: For unit and integration testing of components and logic.
+---
 
-## Architecture
+## Core User Journeys
 
-The frontend follows a component-based architecture, promoting reusability and separation of concerns.
+1. **Dashboard**: At-a-glance metrics, recent activity, and quick actions
+2. **Data Collection**: Connect accounts, configure collection, monitor progress
+3. **Dataset Management**: Organize, filter, and export datasets
+4. **Content Calendar**: Plan, schedule, and manage posts visually
+5. **Analysis & Prediction**: Interactive reports, trend visualizations, and actionable suggestions
+6. **Account & Settings**: Manage connected accounts, user profile, and preferences
+
+---
+
+## Main UI Components
+
+- **Dashboard**: Central hub for metrics, activity, and navigation
+- **Data Collection Wizard**: Step-by-step flow for connecting and scraping accounts
+- **Dataset Explorer**: Browse, filter, and manage datasets
+- **Content Calendar**: Visual scheduling and management of posts
+- **Prediction & Analytics**: Interactive charts, trend analysis, and optimization suggestions
+- **Account Management**: Connect, group, and manage social media accounts
+- **Settings**: User profile, preferences, and application configuration
+
+---
+
+## Frontend Architecture Diagram
 
 ```mermaid
-graph TD
-    App[Application Shell (Electron)] --> MainProcess[Electron Main Process]
-    App --> RendererProcess[Electron Renderer Process (React App)]
-
-    RendererProcess --> UIRoot[UI Root (React)]
-    UIRoot --> StateManagement[State Management (e.g., Redux)]
-    UIRoot --> Routing[Routing (e.g., React Router)]
-    UIRoot --> Pages[Pages/Views]
-    UIRoot --> SharedComponents[Shared UI Components]
-
-    Pages --> DashboardPage[Dashboard Page]
-    Pages --> DataCollectionPage[Data Collection Page]
-    Pages --> DatasetMgmtPage[Dataset Management Page]
-    Pages --> AnalysisPage[Analysis & Reports Page]
-    Pages --> PredictionPage[Prediction Models Page]
-    Pages --> CalendarPage[Content Calendar Page]
-    Pages --> AccountMgmtPage[Account Management Page]
-    Pages --> SettingsPage[Settings Page]
-
-    SharedComponents --> Buttons[Buttons]
-    SharedComponents --> Forms[Forms & Inputs]
-    SharedComponents --> Modals[Modals]
-    SharedComponents --> Charts[Chart Wrappers]
-    SharedComponents --> NavigationElements[Navigation (Sidebar, Tabs)]
-
-    StateManagement --> DataLogic[Data Fetching & Caching Logic]
-    DataLogic --> LocalStorage[Local Data Storage Adapters]
-    LocalStorage --> FileSystem[File System (via Electron Main)]
-    LocalStorage --> SQLite[SQLite DB (via Electron Main)]
-
-    Pages --> APIIntegration[API/Service Integration Layer]
-    APIIntegration --> LocalServices[Local Backend Services (if any)]
-    APIIntegration --> PlatformAPIs[Platform API Connectors (via secure handling)]
+flowchart TD
+    %% Main Architecture
+    Electron[Electron Shell] --> Main[Main Process]
+    Electron --> Renderer[Renderer Process - React App]
+    Main <--> IPC[IPC Communication]
+    IPC <--> Renderer
+    
+    %% Renderer Process Breakdown
+    Renderer --> UI[UI Root]
+    Renderer --> API[API Layer]
+    
+    %% UI Structure
+    UI --> State[State Management]
+    UI --> Routing[Routing]
+    UI --> Pages[Pages/Views]
+    UI --> Components[Shared Components]
+    UI --> Visualization[Visualization Layer]
+    
+    %% Pages
+    Pages --> Dashboard[Dashboard]
+    Pages --> DataCollection[Data Collection]
+    Pages --> Datasets[Dataset Management]
+    Pages --> Calendar[Content Calendar]
+    Pages --> Analytics[Analytics & Prediction]
+    Pages --> AccountMgmt[Account Management]
+    Pages --> Settings[Settings]
+    
+    %% Visualization Types
+    Visualization --> Charts[Charts/Graphs]
+    Visualization --> Tables[Tables]
+    Visualization --> Maps[Maps]
+    Visualization --> Heatmaps[Heatmaps]
+    Visualization --> Networks[Network Graphs]
+    
+    %% API Connections
+    API --> PlatformAPIs[Platform Connectors]
+    API --> LocalDB[Local Data Storage]
+    
+    %% Style
+    classDef primary fill:#d1e8ff,stroke:#2980b9,stroke-width:2px
+    classDef secondary fill:#e8f4d1,stroke:#27ae60,stroke-width:2px
+    classDef tertiary fill:#ffe8d1,stroke:#d35400,stroke-width:2px
+    classDef quaternary fill:#f4d1e8,stroke:#8e44ad,stroke-width:2px
+    
+    class Electron,Main,Renderer,IPC primary
+    class UI,API secondary
+    class Dashboard,DataCollection,Datasets,Calendar,Analytics,AccountMgmt,Settings tertiary
+    class Charts,Tables,Maps,Heatmaps,Networks quaternary
 ```
 
-### Key Architectural Components
+---
 
-1. **Electron Shell**
-   - **Main Process**: Manages application lifecycle, native OS interactions (dialogs, menus), and background tasks. Handles communication with the Renderer process.
-   - **Renderer Process**: Runs the React application (the user interface). Each window in Electron typically has its own renderer process.
+## Best Practices
 
-2. **React Application**
-   - **Routing**: Manages navigation between different views/pages of the application.
-   - **State Management**: Centralized store for application data, ensuring consistency and facilitating data flow between components.
-   - **Pages/Views**: Top-level components representing major sections of the application (e.g., Dashboard, Content Calendar).
-   - **Shared UI Components**: Reusable UI elements (buttons, forms, charts) used across multiple pages.
-   - **Service Integration Layer**: Handles communication with local data sources, file system, or any backend services if applicable.
+- **Responsive Design**: Ensure usability across screen sizes and OSes
+- **Accessibility**: Follow WCAG guidelines for inclusive design
+- **Performance**: Optimize rendering and data fetching for large datasets
+- **Modularity**: Use reusable components and clear separation of concerns
+- **User Feedback**: Provide real-time progress, error handling, and actionable notifications
+- **Security**: Safeguard user data and credentials in the UI
 
-## Directory Structure (Conceptual)
+---
 
-A typical frontend directory structure might look like this:
-
-```plaintext
-src/
-|-- main.ts (Electron Main Process entry)
-|-- preload.ts (Electron Preload Script)
-|-- renderer/
-|   |-- App.tsx (React App Root)
-|   |-- index.tsx (React Renderer Entry)
-|   |-- assets/ (images, fonts)
-|   |-- components/ (shared UI components)
-|   |   |-- Button/
-|   |   |-- Chart/
-|   |   |-- ...
-|   |-- constants/ (application-wide constants)
-|   |-- contexts/ (React Context API providers)
-|   |-- features/ (module-specific components and logic)
-|   |   |-- dashboard/
-|   |   |-- dataCollection/
-|   |   |-- ...
-|   |-- hooks/ (custom React hooks)
-|   |-- layouts/ (page layout components)
-|   |-- pages/ (top-level page components)
-|   |-- services/ (data fetching, API interactions)
-|   |-- store/ (state management configuration and slices)
-|   |-- styles/ (global styles, theme)
-|   |-- types/ (TypeScript type definitions)
-|   |-- utils/ (utility functions)
-|-- index.html (HTML entry for Electron Renderer)
-```
-
-This overview provides a foundational understanding of the CherryBomb frontend. Detailed documentation for specific components, pages, and features can be found in their respective sections.
+For details on each UI section, see the dedicated documentation pages for Dashboard, Data Visualization, Content Calendar, and Account Management.

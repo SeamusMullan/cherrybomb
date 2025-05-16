@@ -6,48 +6,47 @@ CherryBomb is built as a cross-platform desktop application using Electron with 
 
 ```mermaid
 graph TB
-    subgraph Desktop Application
+    subgraph "Desktop Application"
         UI[User Interface]
         LC[Local Cache]
         OfflineProc[Offline Processing]
     end
-    
-    subgraph Backend Services
+
+    subgraph "Backend Services"
         Auth[Authentication Service]
         DS[Data Storage Service]
         ML[Machine Learning Service]
         Ana[Analytics Service]
         DC[Data Collection Service]
     end
-    
-    subgraph External APIs
+
+    subgraph "External APIs"
         SM1[Instagram API]
         SM2[TikTok API]
         SM3[YouTube API]
         SM4[Twitter API]
         SM5[Facebook API]
     end
-    
-    UI --> Auth
+
+    UI -->|auth| Auth
     UI --> LC
     UI --> OfflineProc
-    
+    UI -->|data| DS
+    UI -->|analytics| Ana
+    UI -->|ML| ML
+    UI -->|collect| DC
+
     Auth --> DS
-    
-    DC --> SM1
-    DC --> SM2
-    DC --> SM3
-    DC --> SM4
-    DC --> SM5
-    
+    DC -->|API| SM1
+    DC -->|API| SM2
+    DC -->|API| SM3
+    DC -->|API| SM4
+    DC -->|API| SM5
     DC --> DS
-    
     DS --> ML
     DS --> Ana
-    
     ML --> DS
     Ana --> DS
-    
     DS --> UI
 ```
 
