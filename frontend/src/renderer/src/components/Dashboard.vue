@@ -28,6 +28,7 @@ const windows = reactive([
 
 const gridSize = 40
 const draggingAny = ref(false)
+const resizingAny = ref(false)
 
 const bringToFront = (id: number): void => {
   const maxZ = Math.max(...windows.map((w) => w.z))
@@ -37,6 +38,10 @@ const bringToFront = (id: number): void => {
 
 const handleDragging = (isDragging: boolean): void => {
   draggingAny.value = isDragging
+}
+
+const handleResizing = (isResizing: boolean): void => {
+  resizingAny.value = isResizing
 }
 
 // --- Add reactivity for window size ---
@@ -60,7 +65,7 @@ onUnmounted(() => {
   <div class="dashboard">
     <GridOverlay
       :grid-size="gridSize"
-      :visible="draggingAny"
+      :visible="draggingAny || resizingAny"
       :width="windowWidth"
       :height="windowHeight"
     />
@@ -71,9 +76,11 @@ onUnmounted(() => {
       :grid-size="gridSize"
       :dragging-any="draggingAny"
       :on-drag-state="handleDragging"
+      :on-resize-state="handleResizing"
       @mousedown="bringToFront(win.id)"
       @focus="bringToFront(win.id)"
       @dragging="handleDragging"
+      @resizing="handleResizing"
     >
       <template #title>{{ win.title }}</template>
       <template #default>{{ win.content }}</template>

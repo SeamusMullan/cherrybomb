@@ -13,22 +13,24 @@ const rows = computed(() => Math.ceil(props.height / props.gridSize))
 </script>
 
 <template>
-  <div v-if="visible" class="grid-overlay">
-    <svg :width="width" :height="height" class="grid-svg">
-      <g>
-        <template v-for="r in rows" :key="`row-${r}`">
-          <circle
-            v-for="c in cols"
-            :key="`${r}-${c}`"
-            :cx="(c - 1) * gridSize"
-            :cy="(r - 1) * gridSize"
-            r="3"
-            fill="#fff3"
-          />
-        </template>
-      </g>
-    </svg>
-  </div>
+  <transition name="grid-fade">
+    <div v-if="visible" class="grid-overlay">
+      <svg :width="width" :height="height" class="grid-svg">
+        <g>
+          <template v-for="r in rows" :key="`row-${r}`">
+            <circle
+              v-for="c in cols"
+              :key="`${r}-${c}`"
+              :cx="(c - 1) * gridSize"
+              :cy="(r - 1) * gridSize"
+              r="2"
+              fill="#fff3"
+            />
+          </template>
+        </g>
+      </svg>
+    </div>
+  </transition>
 </template>
 
 <style scoped>
@@ -45,5 +47,20 @@ const rows = computed(() => Math.ceil(props.height / props.gridSize))
   width: 100vw;
   height: 100vh;
   display: block;
+}
+.grid-svg circle {
+  transition: fill 0.2s ease;
+}
+.grid-fade-enter-active,
+.grid-fade-leave-active {
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.grid-fade-enter-from,
+.grid-fade-leave-to {
+  opacity: 0;
+}
+.grid-fade-enter-to,
+.grid-fade-leave-from {
+  opacity: 1;
 }
 </style>

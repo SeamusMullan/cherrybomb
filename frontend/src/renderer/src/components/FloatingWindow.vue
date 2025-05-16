@@ -12,10 +12,11 @@ const props = defineProps({
   z: Number,
   gridSize: { type: Number, default: 40 },
   draggingAny: Boolean,
-  onDragState: Function
+  onDragState: Function,
+  onResizeState: Function
 })
 
-const emit = defineEmits(['focus', 'dragging'])
+const emit = defineEmits(['focus', 'dragging', 'resizing'])
 
 const pos = ref({ x: props.x ?? 100, y: props.y ?? 100 })
 const size = ref({ width: props.width ?? 320, height: props.height ?? 200 })
@@ -34,10 +35,13 @@ function animateTo(
   onComplete?: () => void
 ): void {
   const keys = Object.keys(target)
-  const from = keys.reduce((acc, key) => {
-    acc[key] = current[key]
-    return acc
-  }, {} as Record<string, number>)
+  const from = keys.reduce(
+    (acc, key) => {
+      acc[key] = current[key]
+      return acc
+    },
+    {} as Record<string, number>
+  )
 
   animate({
     from,
@@ -113,6 +117,14 @@ const onMouseUp = (): void => {
       resizing.value = false
     }
   }
+  if (resizing.value) {
+    emit('resizing', false)
+    if (props.onResizeState) props.onResizeState(false)
+  }
+  if (dragging.value) {
+    emit('dragging', false)
+    if (props.onDragState) props.onDragState(false)
+  }
 }
 
 const onResizeMouseDown = (e: MouseEvent): void => {
@@ -125,6 +137,8 @@ const onResizeMouseDown = (e: MouseEvent): void => {
     height: size.value.height
   }
   emit('focus')
+  emit('resizing', true)
+  if (props.onResizeState) props.onResizeState(true)
 }
 
 onMounted(() => {
@@ -139,6 +153,11 @@ onUnmounted(() => {
 watch(dragging, (val) => {
   emit('dragging', val)
   if (props.onDragState) props.onDragState(val)
+})
+
+watch(resizing, (val) => {
+  emit('resizing', val)
+  if (props.onResizeState) props.onResizeState(val)
 })
 
 const style = computed(() => ({
