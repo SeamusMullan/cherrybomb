@@ -13,7 +13,12 @@ const props = defineProps({
   gridSize: { type: Number, default: 40 },
   draggingAny: Boolean,
   onDragState: Function,
-  onResizeState: Function
+  onResizeState: Function,
+  // Add boundaries for movement
+  areaWidth: { type: Number, default: window.innerWidth },
+  areaHeight: { type: Number, default: window.innerHeight },
+  areaOffsetX: { type: Number, default: 0 },
+  areaOffsetY: { type: Number, default: 0 }
 })
 
 const emit = defineEmits(['focus', 'dragging', 'resizing'])
@@ -26,6 +31,7 @@ const dragOffset = ref({ x: 0, y: 0 })
 const resizeStart = ref({ x: 0, y: 0, width: 0, height: 0 })
 
 const gridSnap = (val: number, grid: number): number => Math.round(val / grid) * grid
+const clamp = (val: number, min: number, max: number): number => Math.max(min, Math.min(max, val))
 
 // Animate a reactive object (pos or size) to target values
 function animateTo(
@@ -67,11 +73,30 @@ const onMouseDown = (e: MouseEvent): void => {
 
 const onMouseMove = (e: MouseEvent): void => {
   if (dragging.value) {
-    pos.value.x = e.clientX - dragOffset.value.x
-    pos.value.y = e.clientY - dragOffset.value.y
+    // Calculate boundaries
+    const minX = props.areaOffsetX
+    const minY = props.areaOffsetY
+    const maxX = props.areaOffsetX + props.areaWidth - size.value.width
+    const maxY = props.areaOffsetY + props.areaHeight - size.value.height
+    // Clamp position
+    pos.value.x = clamp(e.clientX - dragOffset.value.x, minX, maxX)
+    pos.value.y = clamp(e.clientY - dragOffset.value.y, minY, maxY)
   } else if (resizing.value) {
-    size.value.width = Math.max(200, resizeStart.value.width + (e.clientX - resizeStart.value.x))
-    size.value.height = Math.max(120, resizeStart.value.height + (e.clientY - resizeStart.value.y))
+    // Clamp resizing so window doesn't go out of bounds
+    const minWidth = 200
+    const minHeight = 120
+    const maxWidth = props.areaWidth - (pos.value.x - props.areaOffsetX)
+    const maxHeight = props.areaHeight - (pos.value.y - props.areaOffsetY)
+    size.value.width = clamp(
+      resizeStart.value.width + (e.clientX - resizeStart.value.x),
+      minWidth,
+      maxWidth
+    )
+    size.value.height = clamp(
+      resizeStart.value.height + (e.clientY - resizeStart.value.y),
+      minHeight,
+      maxHeight
+    )
   }
 }
 
