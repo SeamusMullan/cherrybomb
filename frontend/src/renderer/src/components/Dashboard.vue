@@ -74,31 +74,66 @@ const handleResizing = (isResizing: boolean): void => {
 function autoArrangeWindows(): void {
   // Calculate area for windows
   const areaWidth = windowWidth.value - sidebarWidth.value
-  // const areaHeight = windowHeight.value - headerHeight // not used
+  const areaHeight = windowHeight.value - headerHeight
   const count = windows.length
   if (count === 0) return
 
   // Sort windows left-to-right, top-to-bottom by current y then x
   const sorted = [...windows].sort((a, b) => a.y - b.y || a.x - b.x)
 
-  // Try to fit as many windows per row as possible, keeping their width
-  let x = 40
+  // Use the current (possibly resized) width/height for each window
   let y = 40
-  let maxRowHeight = 0
   const padding = 24
+  let remaining = [...sorted]
+  let stacked = false
 
-  for (const win of sorted) {
-    // If window would overflow, move to next row
-    if (x + win.width > areaWidth) {
-      x = 40
-      y += maxRowHeight + padding
-      maxRowHeight = 0
+  while (remaining.length > 0 && !stacked) {
+    let row: typeof windows = []
+    let rowWidth = 0
+    let maxRowHeight = 0
+    // Fill row with as many windows as fit horizontally
+    for (let i = 0; i < remaining.length; ) {
+      const win = remaining[i]
+      // Use the current width/height if available
+      const winWidth = win.width
+      const winHeight = win.height
+      if (rowWidth + winWidth > areaWidth && row.length > 0) break
+      if (rowWidth + winWidth > areaWidth) {
+        // Window too wide for even an empty row, force it in
+        row.push(win)
+        rowWidth += winWidth + padding
+        if (winHeight > maxRowHeight) maxRowHeight = winHeight
+        remaining.splice(i, 1)
+        break
+      }
+      row.push(win)
+      rowWidth += winWidth + padding
+      if (winHeight > maxRowHeight) maxRowHeight = winHeight
+      remaining.splice(i, 1)
     }
-    // Always set to a new value to force reactivity
-    win.x = x + Math.random() * 0.001 // force change
-    win.y = y + Math.random() * 0.001 // force change
-    x += win.width + padding
-    if (win.height > maxRowHeight) maxRowHeight = win.height
+    // Check if next row would overflow vertically
+    if (y + maxRowHeight > areaHeight) {
+      // No room for another row, stack remaining windows vertically
+      stacked = true
+      break
+    }
+    // Place row, distribute windows left to right
+    let rowX = 40
+    for (const win of row) {
+      win.x = rowX + Math.random() * 0.001 // force change
+      win.y = y + Math.random() * 0.001
+      rowX += win.width + padding
+    }
+    y += maxRowHeight + padding
+  }
+  // Stack remaining windows vertically if needed
+  if (stacked && remaining.length > 0) {
+    let stackY = y
+    for (const win of remaining) {
+      win.x = 40 + Math.random() * 0.001
+      win.y = stackY + Math.random() * 0.001
+      stackY += win.height + padding
+    }
   }
 }
 

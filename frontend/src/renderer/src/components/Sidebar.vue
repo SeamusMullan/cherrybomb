@@ -1,22 +1,7 @@
 <template>
   <aside class="sidebar">
     <div class="sidebar-top">
-      <span class="sidebar-logo">
-        <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
-          <circle cx="16" cy="16" r="16" fill="#FF4C60" />
-          <text
-            x="16"
-            y="21"
-            text-anchor="middle"
-            font-size="14"
-            fill="#fff"
-            font-family="sans-serif"
-            font-weight="bold"
-          >
-            CB
-          </text>
-        </svg>
-      </span>
+      <span class="sidebar-logo sidebar-logo-text">CherryBomb</span>
       <span class="sidebar-profile">
         <img src="https://i.pravatar.cc/32?u=cherrybomb" alt="Profile" />
       </span>
@@ -94,11 +79,21 @@ const selectTab = (id: string): void => {
   display: flex;
   align-items: center;
 }
+.sidebar-logo-text {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ff4c60;
+  letter-spacing: 0.04em;
+  user-select: none;
+}
 .sidebar-profile img {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   border: 2px solid #35384a;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
 }
 .tab-list {
   flex: 1;
