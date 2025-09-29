@@ -21,6 +21,7 @@ This section is yet to be written.
 The intent for this application is to use C++ and WebView for the main user interface. This allows the use of more complex rendering tools like OpenCL/OpenGL/WebGL/etc. to render interactive graphs and tools for data visualization.
 
 ### Backend
+
 The backend functionality (i.e. the scraping) of the application is intended to be written using Python and possibly some custom components in TypeScript or Python. Ideally existing APIs for platforms will be used to reduce the amount of new code required, but naturally some of the existing libraries may be broken or require updating to function with existing services.
 
 Ideally cherrybomb will be a paid service, which restricts the application to using unofficial or free APIs available to the general public. For platforms like Twitter/X, this can cause issues due to the heavy emphasis on the paid API. Other platforms like Instagram do not provide official APIs for scraping information or for extracting user information, mainly for privacy reasons (probably). This means we will need to use unofficial APIs to even have the functionality in the application.
@@ -31,4 +32,4 @@ Due to the unstable nature of unofficial APIs, this means that the application c
 
 Documentation for the program will be done using Doxygen, which supports C++ code very well and has some workarounds for Python based code. TypeScript code will be documented using TypeDoc.
 
-## 
+
