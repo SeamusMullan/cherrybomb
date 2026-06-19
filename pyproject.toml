@@ -1,0 +1,73 @@
+# cherrybomb — single-language Python OSINT desktop app.
+# GUI: PySide6 (Qt 6 Widgets, native, NON-webview).
+# Engine: GUI-agnostic scraping package (zero Qt knowledge).
+#
+# Heavy builds (PyInstaller freezes, per-OS artifacts) run in GitHub Actions CI,
+# NOT on the dev machine. Local dev only needs an editable install of the deps
+# you touch. See .github/workflows/ for the build/release pipeline.
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cherrybomb"
+version = "0.0.0"
+description = "Cross-platform desktop OSINT data-collection app for ethical researchers."
+readme = "README.md"
+requires-python = ">=3.12,<3.14"   # 3.14 wheels for scraper/GUI deps lag; CI pins 3.12.
+license = { file = "LICENSE" }
+authors = [{ name = "Seamus Mullan" }]
+keywords = ["osint", "scraping", "research", "desktop", "qt"]
+
+# Base engine dependencies only. Platform scrapers + GUI live behind extras so the
+# "lean" (HTTP-only) artifact stays small; the "full" artifact pulls a browser.
+dependencies = [
+    "pydantic>=2,<3",      # typed result models, tolerant of evolving scraper fields
+    "httpx>=0.27",         # async HTTP/2 client, proxy mounts
+    "tenacity>=8",         # jittered exponential backoff
+    "platformdirs>=4",     # per-OS paths; NEVER hardcode
+]
+
+[project.optional-dependencies]
+gui = [
+    "PySide6>=6.7",        # Qt 6 Widgets + QtCharts + QGraphicsView (native, no webview)
+]
+reddit = [
+    "praw>=7",             # official Reddit API — Phase 1 plumbing de-risker
+]
+instagram = [
+    "instaloader>=4.13",   # Phase 2; best-effort, account-at-risk
+    "curl_cffi>=0.7",      # browser TLS/JA3 impersonation on the direct path
+    "patchright>=1.40",    # rebrowser-patched Playwright; anti-detect baseline
+]
+parquet = [
+    "pyarrow>=16",         # optional export; ~100-150MB — kept OUT of base on purpose
+]
+dev = [
+    "ruff>=0.6",
+    "pytest>=8",
+    "pyinstaller>=6.10",
+]
+
+[project.scripts]
+# Headless engine entry point (F8) — pure library, zero Qt import.
+cherrybomb-engine = "cherrybomb_engine.__main__:main"
+
+[project.gui-scripts]
+# GUI entry point. Windowed (no console) on Windows/macOS.
+cherrybomb = "cherrybomb.gui.app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cherrybomb", "src/cherrybomb_engine"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "spikes"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

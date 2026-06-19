@@ -1,42 +1,46 @@
-# Prerequisites
-*.d
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+.eggs/
+.installed.cfg
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Virtual envs
+.venv/
+venv/
+env/
 
-# Precompiled Headers
-*.gch
-*.pch
+# Tooling caches
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
 
-# Linker files
-*.ilk
+# ---- Build / packaging artifacts ----
+# PyInstaller writes here; these are produced in CI, never committed.
+/build/
+/dist/
+*.manifest
+# NOTE: do NOT add a blanket *.spec ignore — packaging/cherrybomb.spec is tracked on purpose.
 
-# Debugger Files
-*.pdb
+# Locally-fetched browser binaries (Playwright/Patchright) and runtime caches
+.cache/
+playwright-browsers/
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# ---- Secrets / runtime state (never commit) ----
+# Scraper sessions, cookies, proxy lists, burner-account creds.
+*.session
+*.cookies
+secrets/
+.env
+.env.*
+proxies.txt
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# debug information files
-*.dwo
-app/build
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

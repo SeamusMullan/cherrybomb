@@ -1,0 +1,23 @@
+# Scheduled scraper canary. SKELETON — wired in Phase 2 when adapters exist.
+#
+# Breakage is the STEADY STATE for X/IG scrapers; this detects it before users do
+# and auto-files a GitHub issue. CRITICAL: it must run against burner accounts via
+# RESIDENTIAL egress, never GitHub runner IP ranges (which get auto-flagged and
+# burn the test accounts). That means a self-hosted runner on a residential line or
+# a residential-proxy egress — NOT a stock github-hosted runner hitting X/IG directly.
+name: canary
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # daily, off-peak, jittered minute
+  workflow_dispatch:
+
+jobs:
+  canary:
+    # TODO Phase 2: self-hosted/residential-egress runner. Stock runner left here as
+    # a placeholder ONLY; do not point it at X/IG directly.
+    if: false   # disabled until Phase 2 adapters + residential egress exist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "canary runs X/IG adapters against burners via residential proxy; files an issue on break"

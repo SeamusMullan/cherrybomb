@@ -1,0 +1,39 @@
+# Per-OS release builds. SKELETON — fleshed out in Phase 1+. Heavy compile is
+# CI-only by design (dev happens on WSL2, builds happen here).
+#
+# Matrix separates OS from ARCH so Intel macOS is not silently dropped. arm64 Linux
+# and Windows are OUT of v1 scope (declared, not forgotten).
+name: build-release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest,  arch: x86_64 }
+          - { os: windows-latest, arch: x86_64 }
+          - { os: macos-14,       arch: arm64 }
+          - { os: macos-13,       arch: x86_64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install (locked) — TODO: switch to a uv/pip-tools lockfile
+        run: pip install -e ".[gui,reddit,dev]"
+
+      # TODO Phase 1+: PyInstaller --onedir freeze using packaging/cherrybomb.spec
+      #   - LEAN artifact (HTTP-only) vs FULL artifact (browser bundled / first-launch fetch)
+      #   - size-budget gate (fail if artifact exceeds per-OS ceiling)
+      #   - Windows Authenticode signing + VirusTotal/Defender scan gate
+      #   - macOS hardened-runtime DEEP-sign of every nested Mach-O + notarization
+      #   - Linux: AppImage/Flatpak (NEVER silent --no-sandbox) + .deb
+      - name: Placeholder
+        run: echo "build for ${{ matrix.os }}/${{ matrix.arch }} — implemented in Phase 1+"
