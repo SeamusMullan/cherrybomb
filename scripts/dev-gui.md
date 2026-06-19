@@ -15,17 +15,17 @@ shell. Options, in order of preference:
 1. **Use WSLg's display** — it's normally `:0`. Export it and run:
    ```sh
    export DISPLAY=:0
-   pip install -e ".[gui,dev]"
-   python -m cherrybomb            # or: cherrybomb
+   uv sync --extra gui --group dev
+   uv run cherrybomb
    ```
 2. **Headless smoke (no window)** — verify the app constructs without a display,
    exactly like CI does:
    ```sh
-   QT_QPA_PLATFORM=offscreen python -c "import sys; from PySide6.QtWidgets import QApplication; from cherrybomb.gui.app import MainWindow; QApplication(sys.argv); MainWindow(); print('ok')"
+   QT_QPA_PLATFORM=offscreen uv run python -c "import sys; from PySide6.QtWidgets import QApplication; from cherrybomb.gui.app import MainWindow; QApplication(sys.argv); MainWindow(); print('ok')"
    ```
 3. **Gate A interactively** (needs a real display):
    ```sh
-   DISPLAY=:0 python spikes/gate_a_dataviz.py
+   DISPLAY=:0 uv run python spikes/gate_a_dataviz.py
    ```
 
 ## Why this matters

@@ -67,18 +67,21 @@ packaging/               per-OS PyInstaller recipes (filled in Phase 1+)
 
 ## Development setup
 
-Develop on Linux/WSL2; you do **not** build here.
+Develop on Linux/WSL2; you do **not** build here. Dependencies are managed with
+[uv](https://docs.astral.sh/uv/) — it installs the pinned Python (3.12) and resolves
+from `uv.lock`.
 
 ```sh
-python3.12 -m venv .venv && . .venv/bin/activate
-pip install -e ".[gui,reddit,dev]"
+# install uv once:  curl -LsSf https://astral.sh/uv/install.sh | sh
+uv sync --extra gui --extra reddit --group dev   # creates .venv from the lockfile
 
-ruff check . && pytest -q          # lint + Qt-free engine tests
-python -m cherrybomb_engine list   # headless: list scrapers
-cherrybomb                         # GUI (needs a display — see scripts/dev-gui.md)
+uv run ruff check . && uv run pytest -q           # lint + Qt-free engine tests
+uv run python -m cherrybomb_engine list           # headless: list scrapers
+uv run cherrybomb                                 # GUI (needs a display — see scripts/dev-gui.md)
 ```
 
-GUI preview under WSLg: see [`scripts/dev-gui.md`](scripts/dev-gui.md).
+Add/upgrade a dependency by editing `pyproject.toml` then `uv lock`; commit the
+updated `uv.lock`. GUI preview under WSLg: see [`scripts/dev-gui.md`](scripts/dev-gui.md).
 
 ## Contributing
 

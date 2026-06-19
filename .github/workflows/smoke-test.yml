@@ -1,5 +1,8 @@
 # Phase 0 smoke test: prove the GUI boots headless (no GPU) and the Phase-0 gates
 # assert. Heavy per-OS release builds live in build-release.yml.
+#
+# Dependency management is uv. uv installs the pinned Python (3.12) and resolves
+# from uv.lock for reproducible runs (--locked fails if the lock is stale).
 name: smoke-test
 
 on:
@@ -7,19 +10,22 @@ on:
     branches: ["**"]
   pull_request:
 
+env:
+  UV_PYTHON: "3.12"   # 3.14 wheels lag for GUI/scraper deps
+
 jobs:
   lint-and-engine:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.12"   # 3.14 wheels lag for GUI/scraper deps
-      - run: pip install -e ".[gui,dev]"
+          enable-cache: true
+      - run: uv sync --locked --extra gui --group dev
       - name: Ruff
-        run: ruff check .
+        run: uv run ruff check .
       - name: Engine unit tests (Qt-free)
-        run: pytest -q
+        run: uv run pytest -q
 
   gui-boot-linux:
     # Qt raster backend needs no GPU; xvfb provides a virtual display.
@@ -28,15 +34,15 @@ jobs:
       QT_QPA_PLATFORM: offscreen   # belt-and-suspenders alongside xvfb-run
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.12"
+          enable-cache: true
       - run: |
           sudo apt-get update
           sudo apt-get install -y xvfb libegl1 libgl1 libxkbcommon0 libdbus-1-3
-      - run: pip install -e ".[gui,dev]"
+      - run: uv sync --locked --extra gui --group dev
       - name: GUI imports + constructs a window headless
-        run: xvfb-run -a python -c "import sys; from PySide6.QtWidgets import QApplication; from cherrybomb.gui.app import MainWindow; app=QApplication(sys.argv); w=MainWindow(); print('GUI booted headless OK')"
+        run: xvfb-run -a uv run python -c "import sys; from PySide6.QtWidgets import QApplication; from cherrybomb.gui.app import MainWindow; app=QApplication(sys.argv); w=MainWindow(); print('GUI booted headless OK')"
 
   gate-a-dataviz:
     runs-on: ubuntu-latest
@@ -44,15 +50,15 @@ jobs:
       QT_QPA_PLATFORM: offscreen
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.12"
+          enable-cache: true
       - run: |
           sudo apt-get update
           sudo apt-get install -y xvfb libegl1 libgl1 libxkbcommon0
-      - run: pip install -e ".[gui,dev]"
+      - run: uv sync --locked --extra gui --group dev
       - name: Gate A data-viz benchmark (asserts >=30fps, 100k-row table)
-        run: xvfb-run -a python spikes/gate_a_dataviz.py --bench --nodes 5000 --rows 100000
+        run: xvfb-run -a uv run python spikes/gate_a_dataviz.py --bench --nodes 5000 --rows 100000
 
   gate-c-packaging:
     # Path-resolution half runs everywhere; browser launch half is exercised in the
@@ -63,9 +69,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.12"
-      - run: pip install -e ".[dev]"
+          enable-cache: true
+      - run: uv sync --locked --group dev
       - name: Gate C path resolution + writable browser cache
-        run: python spikes/gate_c_packaging.py --self-test
+        run: uv run python spikes/gate_c_packaging.py --self-test

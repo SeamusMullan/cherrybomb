@@ -44,6 +44,10 @@ instagram = [
 parquet = [
     "pyarrow>=16",         # optional export; ~100-150MB — kept OUT of base on purpose
 ]
+
+# Dev tooling lives in a PEP-735 dependency group (uv-managed, NOT published to
+# wheels and NOT a runtime extra). Install with: uv sync --group dev
+[dependency-groups]
 dev = [
     "ruff>=0.6",
     "pytest>=8",

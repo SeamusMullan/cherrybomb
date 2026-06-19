@@ -56,8 +56,9 @@ class GraphView(QGraphicsView):
     repaint FPS over a fixed animation burst."""
 
     def __init__(self, n_nodes: int) -> None:
-        scene = QGraphicsScene()
-        super().__init__(scene)
+        # Keep the scene on self: a local would be GC'd, deleting its C++ items.
+        self._scene = QGraphicsScene()
+        super().__init__(self._scene)
         self.setRenderHint(QPainter.Antialiasing)
         self.setDragMode(QGraphicsView.ScrollHandDrag)
         self._nodes: list[QGraphicsEllipseItem] = []
@@ -67,7 +68,7 @@ class GraphView(QGraphicsView):
             item = QGraphicsEllipseItem(-3, -3, 6, 6)
             item.setPos(r * math.cos(angle), r * math.sin(angle))
             item.setFlag(QGraphicsEllipseItem.ItemIsMovable)
-            scene.addItem(item)
+            self._scene.addItem(item)
             self._nodes.append(item)
         self._frames = 0
         self._t0 = 0.0
@@ -101,10 +102,10 @@ class BigTableModel(QAbstractTableModel):
             for i in range(rows)
         ]
 
-    def rowCount(self, parent=QModelIndex()) -> int:  # noqa: N802
+    def rowCount(self, parent=QModelIndex()) -> int:  # noqa: N802, B008 (Qt override signature)
         return 0 if parent.isValid() else len(self._rows)
 
-    def columnCount(self, parent=QModelIndex()) -> int:  # noqa: N802
+    def columnCount(self, parent=QModelIndex()) -> int:  # noqa: N802, B008 (Qt override signature)
         return len(self.HEADERS)
 
     def data(self, index, role=Qt.DisplayRole):
@@ -188,7 +189,9 @@ def main(argv: list[str] | None = None) -> int:
     win.resize(1000, 700)
     win.setWindowTitle("Gate A — Qt data-viz spike")
     win.show()
-    QTimer.singleShot(0, lambda: graph.fitInView(graph.scene().itemsBoundingRect(), Qt.KeepAspectRatio))
+    QTimer.singleShot(
+        0, lambda: graph.fitInView(graph.scene().itemsBoundingRect(), Qt.KeepAspectRatio)
+    )
     return app.exec()
 
 

@@ -25,7 +25,7 @@ from __future__ import annotations
 
 import json
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # Outcomes accumulate here (gitignored). Chart break-rate from this at day 14.
@@ -35,7 +35,7 @@ LOG = Path(__file__).with_name("gate_b_log.jsonl")
 def record(platform: str, ok: bool, detail: str) -> None:
     """Append one attempt outcome."""
     line = {
-        "ts": datetime.now(timezone.utc).isoformat(),
+        "ts": datetime.now(UTC).isoformat(),
         "platform": platform,
         "ok": ok,
         "detail": detail,

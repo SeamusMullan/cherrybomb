@@ -21,7 +21,7 @@ empty, see `scripts/dev-gui.md`. In CI, GUI spikes run headless under `xvfb-run`
 with Qt's raster backend (no GPU required).
 
 ```sh
-pip install -e ".[gui,instagram,dev]"
-python spikes/gate_a_dataviz.py          # opens 3 windows / runs fps benchmark
-python spikes/gate_c_packaging.py --self-test
+uv sync --extra gui --extra instagram --group dev
+uv run python spikes/gate_a_dataviz.py          # opens 3 windows / runs fps benchmark
+uv run python spikes/gate_c_packaging.py --self-test
 ```
