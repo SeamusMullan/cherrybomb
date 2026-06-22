@@ -63,9 +63,14 @@ jobs:
   gate-c-packaging:
     # Path-resolution half runs everywhere; browser launch half is exercised in the
     # full build job on a minimal container (Phase 2). Phase 0 = path resolution.
+    #
+    # macos-13 (Intel) is intentionally NOT in the per-push matrix: Intel-mac runners
+    # are scarce and a queued leg auto-cancels the whole run. The path-resolution
+    # check is OS-identical to macos-14/ubuntu/windows here, and the Intel-mac path is
+    # covered at release time in build-release.yml.
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-14, macos-13]
+        os: [ubuntu-latest, windows-latest, macos-14]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
